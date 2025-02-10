@@ -22,7 +22,7 @@ import (
 
 var (
 	numNodes            int
-	maxForks            int
+	numForks            int
 	maxSegments         int
 	maxPiecesPerSegment uint16
 
@@ -44,7 +44,7 @@ var cmd = &cobra.Command{
 		segments := make([]rangedloop.Segment, 0, maxSegments)
 		pieces := make([]metabase.Piece, 0, maxSegments*int(maxPiecesPerSegment))
 		pieceCounts := make(mockOverlay, numNodes)
-		forkSegmentCounts := make([]int, 0, maxForks)
+		forkSegmentCounts := make([]int, 0, numForks)
 
 		if seed == 0 {
 			seed = time.Now().Unix()
@@ -59,7 +59,6 @@ var cmd = &cobra.Command{
 				nodeIDs = append(nodeIDs, testrand.NodeID())
 			}
 
-			numForks := 1 + rand.Intn(maxForks)
 			numSegments := 1 + rand.Intn(maxSegments)
 			if numSegments < numForks {
 				numSegments = numForks
@@ -156,7 +155,7 @@ var cmd = &cobra.Command{
 
 func main() {
 	cmd.Flags().IntVar(&numNodes, "nodes", 3, "number of nodes among which pieces will be distributed")
-	cmd.Flags().IntVar(&maxForks, "max-forks", 100, "maximum number of observer forks")
+	cmd.Flags().IntVar(&numForks, "num-forks", 100, "number of observer forks")
 	cmd.Flags().IntVar(&maxSegments, "max-segments", 1000, "maximum number of segments")
 	cmd.Flags().Uint16Var(&maxPiecesPerSegment, "max-pieces-per-segment", 100, "maximum number of pieces per segment")
 
