@@ -136,7 +136,7 @@ var cmd = &cobra.Command{
 						}
 						pieceID := segment.RootPieceID.Derive(piece.StorageNode, int32(piece.Number))
 						if !retainInfo.Filter.Contains(pieceID) {
-							fmt.Println("Piece not found in bloom filter (piece ID: %v)", pieceID)
+							fmt.Printf("Piece not found in bloom filter (piece ID: %v)\n", pieceID)
 						}
 					}
 				}
