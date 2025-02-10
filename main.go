@@ -87,7 +87,7 @@ var cmd = &cobra.Command{
 			// a random set of segments.
 			for j := range segments {
 				k := rand.Intn(j + 1)
-				segments[j], segments[j] = segments[k], segments[j]
+				segments[j], segments[k] = segments[k], segments[j]
 			}
 
 			observer := bloomfilter.NewObserver(zap.NewNop(), bloomfilter.Config{
